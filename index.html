@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8" />
+  <title>Quiz!</title>
+  <link rel="stylesheet" href="quizData.css">
+  <link rel="stylesheet" href="index.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="shortcut icon" href="images/appIcon.png" type="image/x-icon">
+</head>
+
+<body>
+
+  <!--Title Bar-->
+  <div class="titleBar">
+    <div class="appIcon"></div>
+    <nav>
+      <ul>
+        <li id="TBWindow">Preferências</li>
+      </ul>
+    </nav>
+  </div>
+
+  <!--Flyout-->
+  <div class="flyoutOverlay" id="FOpen" onclick="closeFlyout()"></div>
+  <div class="TBFlyout PrefFlyout" id="TBWF">
+    <div class="option " onclick="enableAccessibiltyButtons()" id="ACSButtonInfo">Botões de acessibilidade <p
+        class="check" id="ACSBCheck">&#x2713;</p>
+    </div>
+    <div class="option" onclick="toggleFullScreen()" id="FSOption">Tela cheia <p class="check" id="FSCheck">&#x2713;</p>
+    </div>
+    <div class="option" onclick="highContrastTheme()">Alto Contraste <p class="check" id="HCCheck"
+        style="display: none;">&#x2713;</p>
+    </div>
+    <div class="option" onclick="changeTheme()" id="themeChanger">Tema escuro <p class="check" id="DTCheck"
+        style="display: none;">&#x2713;</p>
+    </div>
+    <div class="option" onclick="devKeysFlyout()" id="OpenDevKeys">Dev Keys <p class="check" id="DevOpen"
+        style="font-size: 25px;">&#8250;</p>
+    </div>
+    <div class="option" onclick="window.open('https://github.com/IgorSilva-S/ModelQuiz', '_blank')">Faça o seu próprio quiz</div>
+  </div>
+  
+  <div class="TBFlyout DevFlyout" id="DevF">
+    <div class="option" onclick="anotherQuestion()">Trocar questão</div>
+    <div class="option" onclick="correctAnswerBTN()">Realçar botão correto</div>
+    <div class="option" onclick="reloadQuestion()">Recarregar questão</div>
+    <div class="option" onclick="disableClock()">Desligar o Timer</div>
+    <div class="option" onclick="deskToMobile()">Habilitar/Desabilitar modelo Mobile no Desktop</div>
+  </div>
+
+  <!--Home Menu-->
+  <section class="homeMenu" id="menuHome">
+    <h1 id="quizTitle"></h1>
+    <div class="buttonsAlign">
+      <button onclick="startQuiz()">Iniciar</button>
+      <button>Ajuda</button>
+    </div>
+  </section>
+
+  <!--Question section-->
+  <section class="questionSection" id="questions" style="display: none;">
+
+    <!--Question-->
+    <h1>Questão <span id="questNum">0</span></h1>
+    <p id="writeQuestion">Carregando...</p>
+    <span id="mobileAlert">Clique no botão para ver a opção</span>
+
+    <!--Answer buttons-->
+    <div class="buttonsAlign">
+      <button class="BStyle1" id="correct" onclick="correctAnswer()">
+        <div class="accessButton"></div>
+        <p id="a1"></p>
+      </button>
+      <button class="BStyle2" id="wrong1" onclick="wrongAnswer(id)">
+        <div class="accessButton"></div>
+        <p id="a2"></p>
+      </button>
+      <button class="BStyle3" id="wrong2" onclick="wrongAnswer(id)">
+        <div class="accessButton"></div>
+        <p id="a3"></p>
+      </button>
+      <button class="BStyle4" id="wrong3" onclick="wrongAnswer(id)">
+        <div class="accessButton"></div>
+        <p id="a4"></p>
+      </button>
+    </div>
+
+    <!--Mobile: Answers popup-->
+    <div class="answerOverlay" id="correctPopup">
+      <div class="popup">
+        <p id="cAnswer">A1</p>
+        Essa é a alternativa correta?
+        <div class="popupBAlign">
+          <button onclick="popupCorrectAnswer()">Sim</button>
+          <button onclick="closePopup()">Não</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="answerOverlay" id="w1Popup">
+      <div class="popup">
+        <p id="w1Answer">A2</p>
+        Essa é a alternativa correta?
+        <div class="popupBAlign">
+          <button onclick="popupWrongAnswer()">Sim</button>
+          <button onclick="closePopup()">Não</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="answerOverlay" id="w2Popup">
+      <div class="popup">
+        <p id="w2Answer">A3</p>
+        Essa é a alternativa correta?
+        <div class="popupBAlign">
+          <button onclick="popupWrongAnswer()">Sim</button>
+          <button onclick="closePopup()">Não</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="answerOverlay" id="w3Popup">
+      <div class="popup">
+        <p id="w3Answer">A4</p>
+        Essa é a alternativa correta?
+        <div class="popupBAlign">
+          <button onclick="popupWrongAnswer()">Sim</button>
+          <button onclick="closePopup()">Não</button>
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+  <!--Image Section-->
+  <section class="imageSection" id="imgSection" style="display: none">
+    <h1>Observe a imagem para<br>responder a questão</h1>
+    <!--Img Normal Size: 1066x1600 -->
+    <!--1920x1080 display Size: 533x800-->
+    <img src="" alt="" class="helpImage" id="hImg">
+    <button class="controlButton" onclick="goToQuestion()">Ir para a questão</button>
+  </section>
+
+  <!--End Section-->
+  <section class="endPage" id="endPage" style="display: none;">
+    <h1>Parabéns! Você terminou o quiz!</h1>
+    <h2>Seus acertos foram de: <span id="numCorrect">N</span>/<span id="numAll">A</span></h2>
+    <h2 id="finalResultText">Resultado final: <span id="finalResult"></span></h2>
+    <button onclick="restartQuiz()">Tentar novamente</button>
+  </section>
+
+  <!--Progress bar-->
+  <div class="progress" id="quizProgress">
+    <div class="progressValue" id="progress">
+      <div class="progressAnimation" id="PBAnim"></div>
+    </div>
+  </div>
+
+  <!--Timer Bar-->
+  <div class="progressTimer" id="timer">
+    <div class="progressValueTimer" id="timer">
+    </div>
+  </div>
+
+</body>
+
+<!--External script-->
+<script src="quizData.js"></script>
+<script src="./script.js"></script>
+
+<!--Internal script (To Electron use)-->
+<!-- In Web edition, Internal script for Electron didn't exists. If you want to view it, check Electron version in https://github.com/IgorSilva-S/CerebeloQuiz_Electron -->
+
+</html>

@@ -1,0 +1,785 @@
+* {
+  padding: 0;
+  margin: 0;
+}
+
+#mobileAlert {
+  display: none;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica,
+    Arial, sans-serif;
+  color: var(--txtLight);
+  width: 100dvw;
+  height: 100dvh;
+  overflow: hidden;
+  /*background-image: linear-gradient(to right, #85b7dc, #97d0e3);*/
+  background-color: var(--backLight);
+}
+
+::selection {
+  color: var(--txtDark);
+  background: var(--backDark);
+}
+
+.dark {
+  color: var(--txtDark);
+  background-color: var(--backDark);
+}
+
+.dark ::selection {
+  color: var(--txtLight);
+  background: var(--backLight);
+}
+
+.high {
+  color: white;
+  background-color: #000;
+}
+
+.high ::selection {
+  color: black;
+  background: white;
+}
+
+.titleBar {
+  width: 100dvw;
+  height: 40px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  -webkit-app-region: drag;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  z-index: 1002;
+}
+
+.titleBar a {
+  color: yellow;
+  text-decoration: none;
+}
+
+.titleBar nav ul {
+  display: flex;
+  list-style: none;
+  -webkit-app-region: no-drag;
+}
+
+.titleBar nav ul li {
+  margin: 0 4px;
+  padding: 4px 12px;
+  border-radius: 4px;
+  transition-duration: .2s;
+  cursor: context-menu;
+  background-color: var(--backDarkTP);
+  color: var(--txtDark);
+  backdrop-filter: blur(1px);
+}
+
+.dark .titleBar nav ul li {
+  background-color: var(--backLightTP);
+  color: var(--txtLight);
+}
+
+.high .titleBar nav ul li {
+  border: 1px solid white;
+  background-color: black;
+}
+
+.high .titleBar nav ul li:hover {
+  background-color: white;
+  color: black;
+}
+
+.flyoutOverlay {
+  width: 100vw;
+  height: 100vh;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1001;
+  display: none;
+}
+
+.TBFlyout {
+  background-color: #f0f8ff77;
+  backdrop-filter: blur(10px);
+  border-radius: 8px;
+  min-width: 300px;
+  position: absolute;
+  display: none;
+  gap: 10px 0;
+  align-items: center;
+  flex-direction: column;
+  padding: 10px;
+  transition: .3s;
+  transform-origin: top;
+  z-index: 1001;
+  animation: openFlyout .3s ease-out;
+}
+
+.PrefFlyout {
+  top: 40px;
+  left: 40px;
+}
+
+.DevFlyout {
+  display: none;
+  left: 361px;
+  top: 130px;
+  animation: openSubFlyout .3s ease-out;
+}
+
+.high .DevFlyout {
+  left: 343px;
+}
+
+.dark .TBFlyout {
+  background-color: #191919cc;
+}
+
+.high .TBFlyout {
+  background-color: #222;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+}
+
+@keyframes openFlyout {
+  from {
+    top: 10px;
+    opacity: 0;
+  }
+
+  to {
+    top: 40px;
+    opacity: 1;
+  }
+}
+
+@keyframes openSubFlyout {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+.TBFlyout .option {
+  width: 100%;
+  height: 30px;
+  box-sizing: border-box;
+  padding: 0 10px;
+  border-radius: 4px;
+  transition-duration: .2s;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  cursor: context-menu;
+}
+
+.TBFlyout .option .check {
+  position: absolute;
+  right: 20px;
+}
+
+.dark .TBFlyout .option {
+  color: white;
+}
+
+.high .TBFlyout .option {
+  border: 1px solid #ccc;
+}
+
+.high .TBFlyout #themeChanger {
+  color: #777;
+}
+
+.TBFlyout .option:hover {
+  background-color: var(--backDarkTP);
+  color: var(--txtDark);
+}
+
+.dark .TBFlyout .option:hover {
+  background-color: var(--backLightTP);
+  color: var(--txtLight)
+}
+
+.high .TBFlyout .option:hover {
+  background-color: white;
+  color: black;
+}
+
+.high .TBFlyout #themeChanger:hover {
+  background-color: transparent;
+}
+
+.appIcon {
+  width: 20px;
+  height: 20px;
+  margin: 0 10px;
+  background-image: url(./images/appIcon.png);
+  background-size: cover;
+  background-position: center;
+}
+
+.high .appIcon {
+  filter: contrast(10000%);
+}
+
+.homeMenu,
+.endPage {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  flex-direction: column;
+  text-align: center;
+  text-wrap: wrap;
+}
+
+.homeMenu h1,
+.endPage h1 {
+  font-size: 50px;
+}
+
+.homeMenu .buttonsAlign {
+  width: 30%;
+  height: auto;
+  display: flex;
+
+}
+
+.homeMenu .buttonsAlign button,
+.endPage button {
+  text-align: center;
+  padding: 15px 20px;
+  background-color: var(--backDark);
+  border: none;
+  color: white;
+  transition-duration: .2s;
+  flex-grow: 1;
+}
+
+.dark .homeMenu .buttonsAlign button,
+.dark .endPage button {
+  color: var(--txtLight);
+  background-color: var(--backLight);
+}
+
+.high .homeMenu .buttonsAlign button {
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+  background-color: transparent;
+}
+
+.high .homeMenu .buttonsAlign button:hover,
+.high .endPage button:hover {
+  background-color: white;
+  color: black
+}
+
+.endPage button,
+.dark .endPage button {
+  flex-grow: 0;
+  border-radius: 4px;
+  font-size: 20px;
+}
+
+.high .endPage button {
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+  background-color: transparent;
+}
+
+.questionSection {
+  width: 80vw;
+  height: 100vh;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  flex-direction: column;
+  margin: 0 auto;
+}
+
+.imageSection {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  margin: 0 auto;
+}
+
+.helpImage {
+  width: 533px;
+  height: 800px;
+  border-radius: 8px;
+}
+
+.controlButton {
+  position: fixed;
+  bottom: 40px;
+  right: 20px;
+  padding: 10px;
+  background-color: var(--backDark);
+  border: none;
+  border-radius: 4px;
+  color: var(--txtDark);
+  transition-duration: .2s;
+}
+
+.dark .controlButton {
+  color: var(--txtLight);
+  background-color: var(--backLight);
+}
+
+.high .controlButton {
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+  background-color: #000;
+}
+
+.high .controlButton:hover {
+  background-color: white;
+  color: black;
+}
+
+.questionSection h1,
+.imageSection h1 {
+  font-size: 60px;
+  text-align: center;
+}
+
+.questionSection p {
+  font-size: 40px;
+  text-align: center;
+}
+
+
+.buttonsAlign {
+  width: 100%;
+  height: 260px;
+  padding: 10px 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  gap: 15px;
+  z-index: 999;
+}
+
+.buttonsAlign button {
+  border: none;
+  border-radius: 4px;
+  color: var(--txtLight);
+  position: relative;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 30px;
+  box-sizing: border-box;
+  padding-left: 70px;
+  /*background-color: #405869;*/
+}
+
+.dark .buttonsAlign button {
+  color: var(--txtDark);
+  /*background-color: #85b7dc;*/
+}
+
+.high .buttonsAlign button {
+  color: white;
+  background-color: transparent;
+  box-sizing: border-box;
+}
+
+.progress {
+  width: 100%;
+  height: 40px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  overflow: hidden;
+}
+
+.progressTimer {
+  width: 100%;
+  height: 20px;
+  position: absolute;
+  top: 40px;
+  left: 0;
+  overflow: hidden;
+  background-color: #19191922;
+  display: none;
+  justify-content: center;
+  align-items: center;
+}
+
+.dark .progressTimer {
+  background-color: #f0f8ff22;
+}
+
+.high .progressTimer {
+  background-color: white;
+}
+
+
+.high .progressTimer p {
+  color: black;
+}
+
+.progressValue {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  left: -100%;
+  background-color: var(--backDark);
+  transition-duration: .2s;
+  overflow: hidden;
+}
+
+.progressValueTimer {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  left: -100%;
+  transition-duration: .2s;
+  overflow: hidden;
+  animation: timeRunning 30s linear;
+}
+
+@keyframes timeRunning {
+  0% {
+    left: 0;
+    background-color: #00FA9A;
+  }
+
+  50% {
+    left: -50%;
+    background-color: #FFD700;
+  }
+
+  85% {
+    left: -85%;
+    background-color: #DC143C;
+  }
+
+  100% {
+    left: -100%;
+    background-color: #8B0000;
+  }
+}
+
+/*Timer colors:
+  #00FA9A - Medium Spring Green - Okay
+	#FFD700 - Gold - Alert!
+  #DC143C - Crimson - Ending!!
+  #8B0000 - Dark Red - Ended
+*/
+
+.dark .progressValue {
+  background-color: var(--backLight);
+}
+
+.high .progressValue {
+  background-color: #00BFFF;
+}
+
+.progressAnimation {
+  background-image: linear-gradient(to right, #0000, #f0f8ff66);
+  width: 120px;
+  height: 40px;
+  position: absolute;
+  right: 0;
+  animation: animPB 5s linear infinite;
+}
+
+.high .progressAnimation {
+  background-image: linear-gradient(to right, #0000, #0000);
+}
+
+@keyframes animPB {
+  0% {
+    right: 100%;
+  }
+
+  90% {
+    right: -10%;
+    opacity: 1;
+  }
+
+  100% {
+    right: -10%;
+    opacity: 0;
+  }
+}
+
+.accessButton {
+  width: 50px;
+  height: 50px;
+  position: absolute;
+  left: 20px;
+  background-size: cover;
+  background-position: center;
+  display: block;
+}
+
+.dark .accessButton {
+  filter: invert()
+}
+
+.BStyle1 .accessButton {
+  background-image: url(./images/buttonAccessibility/1.png);
+}
+
+.BStyle1 {
+  background-color: var(--b1);
+  grid-column: 1;
+  grid-row: 1;
+}
+
+.high .BStyle1 {
+  border: 1px solid red;
+}
+
+.high .BStyle1:hover {
+  background-color: #FF0000;
+}
+
+.BStyle2 {
+  background-color: var(--b2);
+  grid-column: 2;
+  grid-row: 1;
+}
+
+.high .BStyle2 {
+  border: 1px solid #0000ff
+}
+
+
+.high .BStyle2:hover {
+  background-color: #0000ff;
+}
+
+
+.BStyle3 {
+  background-color: var(--b3);
+  grid-column: 1;
+  grid-row: 2;
+}
+
+.high .BStyle3 {
+  border: 1px solid #ffff00;
+}
+
+
+.high .BStyle3:hover {
+  background-color: #ffff00;
+  color: black;
+}
+
+.BStyle4 {
+  background-color: var(--b4);
+  grid-column: 2;
+  grid-row: 2;
+}
+
+.high .BStyle4 {
+  border: 1px solid #00ff00
+}
+
+
+.high .BStyle4:hover {
+  background-color: #00ff00;
+  color: black;
+}
+
+.high .BStyle1 .accessButton,
+.high .BStyle2 .accessButton,
+.high .BStyle3 .accessButton,
+.high .BStyle4 .accessButton {
+  filter: invert()
+}
+
+.high .BStyle1:hover .accessButton,
+.high .BStyle2:hover .accessButton,
+.high .BStyle3:hover .accessButton,
+.high .BStyle4:hover .accessButton {
+  filter: none
+}
+
+.BStyle2 .accessButton {
+  background-image: url(./images/buttonAccessibility/2.png);
+}
+
+.BStyle3 .accessButton {
+  background-image: url(./images/buttonAccessibility/3.png);
+}
+
+.BStyle4 .accessButton {
+  background-image: url(./images/buttonAccessibility/4.png);
+}
+
+/*Mobile response*/
+
+.answerOverlay {
+  z-index: 1000;
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  display: none;
+  justify-content: center;
+  align-items: flex-end;
+  background-color: var(--backLightTP);
+}
+
+.dark .answerOverlay {
+  background-color: var(--backDarkTP);
+}
+
+.high .answerOverlay {
+  background-color: #0000;
+}
+
+.popup {
+  width: 90dvw;
+  border-radius: 8px;
+  background-color: var(--backLightTP);
+  backdrop-filter: blur(5px);
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  flex-direction: column;
+  text-wrap: wrap;
+  box-sizing: border-box;
+  gap: 50px 0;
+  padding: 20px;
+  font-size: 20px;
+  animation: popupAppear .3s ease-out;
+  position: absolute;
+  bottom: 16dvh;
+  z-index: 1001;
+}
+
+@keyframes popupAppear {
+  from {
+    bottom: 10dvh;
+    opacity: 0;
+  }
+
+  to {
+    bottom: 16dvh;
+    opacity: 1;
+  }
+}
+
+.dark .popup {
+  background-color: var(--backDarkTP);
+}
+
+.high .popup {
+  border: 1px solid #ccc;
+  background-color: #191919;
+}
+
+.popupBAlign {
+  width: 90%;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.popupBAlign button {
+  width: 40%;
+  font-size: 30px;
+  padding: 10px;
+  background-color: var(--backDark);
+  border: none;
+  border-radius: 4px;
+  color: var(--txtDark);
+}
+
+.dark .popupBAlign button {
+  color: var(--txtLight);
+  background-color: var(--backLight);
+}
+
+.high .popupBAlign button {
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+  background-color: transparent;
+}
+
+@media (max-height: 768px) {
+  .helpImage {
+    width: 266px;
+    height: 400px;
+  }
+}
+
+@media (max-width: 550px) {
+
+  .questionSection h1,
+  .imageSection h1 {
+    font-size: 40px;
+    text-align: center;
+  }
+
+  .questionSection p {
+    font-size: 20px;
+    text-align: center;
+  }
+
+  #w1Answer,
+  #w2Answer,
+  #w3Answer,
+  #cAnswer {
+    font-size: 40px;
+  }
+
+  #mobileAlert {
+    display: block;
+  }
+
+  .endPage h1 {
+    font-size: 40px;
+  }
+
+  .endPage h2 {
+    font-size: 20px;
+  }
+
+  .buttonsAlign {
+    grid-template-columns: 90px 90px;
+    grid-template-rows: 90px 90px;
+    justify-content: center;
+    align-content: center;
+  }
+
+  .buttonsAlign button {
+    color: #0000;
+  }
+
+  .DevFlyout {
+    left: 40px;
+  }
+
+  .imageSection {
+    flex-direction: column;
+  }
+
+  .imageSection h1 {
+    display: none;
+  }
+
+  .helpImage {
+    width: 80vw;
+    height: 80vh;
+    border-radius: 8px;
+  }
+}
