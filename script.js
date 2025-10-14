@@ -7,6 +7,8 @@ let highContrast = false
 let isDevOpen = false
 let isInElectron = false
 
+
+
 let DeveloperKeys = true
 
 if (!DeveloperKeys) {
@@ -22,6 +24,16 @@ function deskToMobile() {
     } else {
         DTM = false
     }
+}
+
+function disableClock() {
+    if (isClock) {
+        isClock = false
+    } else {
+        isClock = true
+    }
+
+    canUseTimer()
 }
 
 function canUseTimer() {
@@ -404,16 +416,6 @@ if (isHigh.matches) {
     console.log('Auto-changed theme to High Contrast!')
 }
 
-// Electron part removal
-FSCheck.style.display = 'none'
-document.getElementById('FSOption').style.display = 'none'
-document.getElementById('closeElectron').style.display = 'none'
-document.getElementById('DevF').style.top = '160px'
-let screen = window.screen.width
-if (screen <= 550) {
-    document.getElementById('DevF').style.top = '300px'
-}
-isInElectron = false
 
 // Dev Keys
 function devKeysFlyout() {
