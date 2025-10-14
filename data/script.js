@@ -9,7 +9,7 @@ let isInElectron = false
 
 
 
-let DeveloperKeys = true
+let DeveloperKeys = false
 
 if (!DeveloperKeys) {
     document.getElementById('OpenDevKeys').style.display = 'none'
